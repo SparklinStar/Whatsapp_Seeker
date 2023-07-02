@@ -2,7 +2,6 @@ import streamlit as st
 import helper
 import preprocessor
 import matplotlib.pyplot as plt
-from streamlit_option_menu import option_menu
 import seaborn as sns
 st.title("Whatsapp Seeker")
 st.text("A tool to analyse your whatsapp chats.")
