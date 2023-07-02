@@ -42,7 +42,19 @@ if uploaded_file is not None:
         with col5:
             st.header("Total Links")
             st.title(link)
+        if selected_user =='overall':
+            st.title('Most Busy User')
+            x,new_df=helper.most_busy_users(df)
+            fig,ax = plt.subplots()
 
+            col1,col2=st.columns(2)
+
+            with col1:
+                ax.bar(x.index, x.values, color='red')
+                plt.xticks(rotation="vertical")
+                st.pyplot(fig)
+            with col2:
+                st.dataframe(new_df)
         # monthly timeline
         st.title("Monthly Timeline")
         timeline = helper.monthly_timeline(selected_user,df)
