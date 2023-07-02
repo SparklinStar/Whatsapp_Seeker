@@ -2,10 +2,12 @@ import streamlit as st
 import helper
 import preprocessor
 import matplotlib.pyplot as plt
+from streamlit_option_menu import option_menu
 import seaborn as sns
-st.sidebar.title("Whatsapp Chat Analyzer")
-
-uploaded_file = st.sidebar.file_uploader("Choose a file")
+st.title("Whatsapp Seeker")
+st.text("A tool to analyse your whatsapp chats.")
+st.text("Just upload the exported chat as txt file.")
+uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
     # To read file as bytes:
     bytes_data = uploaded_file.getvalue()
@@ -20,9 +22,9 @@ if uploaded_file is not None:
     user_list.sort()
     user_list.insert(0,"overall")
 
-    selected_user = st.sidebar.selectbox("Show Analysis wrt",user_list)
+    selected_user = st.selectbox("Show Analysis wrt",user_list)
 
-    if st.sidebar.button("Show Analysis"):
+    if st.button("Show Analysis"):
         num_messages,words,media,poll,link = helper.fetch_stats(selected_user,df)
 
         col1,col2,col3,col4,col5 = st.columns(5)
@@ -56,6 +58,7 @@ if uploaded_file is not None:
             with col2:
                 st.dataframe(new_df)
         # monthly timeline
+
         st.title("Monthly Timeline")
         timeline = helper.monthly_timeline(selected_user,df)
         fig,ax = plt.subplots()
