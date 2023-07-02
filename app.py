@@ -7,6 +7,7 @@ st.set_page_config(page_title="Whatsapp_Seeker")
 st.title("Whatsapp Seeker")
 st.text("A tool to analyse your whatsapp chats.")
 st.text("Just upload the exported chat as txt file.")
+st.text("Also don't include media while exporting chats.")
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
     # To read file as bytes:
