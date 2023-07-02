@@ -3,6 +3,7 @@ import helper
 import preprocessor
 import matplotlib.pyplot as plt
 import seaborn as sns
+st.set_page_config(page_title="Whatsapp_Seeker")
 st.title("Whatsapp Seeker")
 st.text("A tool to analyse your whatsapp chats.")
 st.text("Just upload the exported chat as txt file.")
