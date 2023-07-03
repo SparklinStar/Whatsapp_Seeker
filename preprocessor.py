@@ -7,23 +7,43 @@ def preprocess(data):
     pattern2= '\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s-\s'
     match_12_hour = re.search(pattern, data)
     if match_12_hour:
-        messages = re.split(pattern, data)[1:]
-        dates = re.findall(pattern, data)
-        df = pd.DataFrame({'user_message': messages, 'message_date': dates})
-        df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%Y, %I:%M %p - ')
-        df.rename(columns={'message_date': 'date'}, inplace=True)
+        pattern3='\d{1,2}/\d{1,2}/\d{4},\s\d{1,2}:\d{2}\s-\s'
+        check= re.search(pattern3, data)
+        if check:
+            messages = re.split(pattern, data)[1:]
+            dates = re.findall(pattern, data)
+            df = pd.DataFrame({'user_message': messages, 'message_date': dates})
+            df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%Y, %I:%M %p - ')
+            df.rename(columns={'message_date': 'date'}, inplace=True)
+        else:
+            messages = re.split(pattern, data)[1:]
+            dates = re.findall(pattern, data)
+            df = pd.DataFrame({'user_message': messages, 'message_date': dates})
+            df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %I:%M %p - ')
+            df.rename(columns={'message_date': 'date'}, inplace=True)
 
     match_24_hour = re.search(pattern2, data)
     if match_24_hour:
-        messages = re.split(pattern2, data)[1:]
-        dates = re.findall(pattern2, data)
+        pattern4= '\d{1,2}/\d{1,2}/\d{4},\s\d{1,2}:\d{2}\s-\s'
+        check2 = re.search(pattern4, data)
+        if check2:
+            messages = re.split(pattern2, data)[1:]
+            dates = re.findall(pattern2, data)
 
-        df = pd.DataFrame({'user_message': messages, 'message_date': dates})
-        # convert message_date type
-        df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%Y, %H:%M - ')
+            df = pd.DataFrame({'user_message': messages, 'message_date': dates})
+                # convert message_date type
+            df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%Y, %H:%M - ')
 
-        df.rename(columns={'message_date': 'date'}, inplace=True)
+            df.rename(columns={'message_date': 'date'}, inplace=True)
+        else:
+            messages = re.split(pattern2, data)[1:]
+            dates = re.findall(pattern2, data)
 
+            df = pd.DataFrame({'user_message': messages, 'message_date': dates})
+            # convert message_date type
+            df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %H:%M - ')
+
+            df.rename(columns={'message_date': 'date'}, inplace=True)
     users = []
     messages = []
     for data in df['user_message']:
