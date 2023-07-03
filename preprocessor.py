@@ -10,7 +10,7 @@ def preprocess(data):
         messages = re.split(pattern, data)[1:]
         dates = re.findall(pattern, data)
         df = pd.DataFrame({'user_message': messages, 'message_date': dates})
-        df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %I:%M %p - ')
+        df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%Y, %I:%M %p - ')
         df.rename(columns={'message_date': 'date'}, inplace=True)
 
     match_24_hour = re.search(pattern2, data)
@@ -20,7 +20,7 @@ def preprocess(data):
 
         df = pd.DataFrame({'user_message': messages, 'message_date': dates})
         # convert message_date type
-        df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %H:%M - ')
+        df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%Y, %H:%M - ')
 
         df.rename(columns={'message_date': 'date'}, inplace=True)
 
